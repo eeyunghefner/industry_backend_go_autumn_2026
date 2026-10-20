@@ -1,10 +1,27 @@
 package main
 
+import "math"
+
 type Stats struct {
 	Count         int
 	Sum, Min, Max int64
 }
 
 func Calc(nums []int64) Stats {
-	panic("TODO: implement")
+	if len(nums) < 2 {
+		return Stats{}
+	}
+	stats := Stats{Min: math.MaxInt64, Max: math.MinInt64}
+	for i := 1; i < len(nums); i++ {
+		d := nums[i] - nums[i-1]
+		stats.Count++
+		stats.Sum += d
+		if d < stats.Min {
+			stats.Min = d
+		}
+		if d > stats.Max {
+			stats.Max = d
+		}
+	}
+	return stats
 }
